@@ -1,4 +1,5 @@
 import json
+from eng_to_heb_processes import eng_to_heb
 
 
 def load_jsonl(file_path):
@@ -48,6 +49,27 @@ def map_translations(data, unique_texts):
     return mapped_data
 
 
+def translate_datasets():
+    json_translations_file_path = 'eng_to_heb_processes/unique_texts.jsonl.dlm2.0translated (1).jsonl'
+    jsons_mapping_pairs_paths = ['datasets/mapped_datasets/mapped_train.json',
+                                 'datasets/mapped_datasets/mapped_dev.json',
+                                 'datasets/mapped_datasets/mapped_test.json'
+                                 ]
+    destinations_paths = ['datasets/heb_datasets/heb_train.json',
+                          'datasets/heb_datasets/heb_dev.json',
+                          'datasets/heb_datasets/heb_test.json'
+                          ]
+
+    for mappings_p, dest_p in zip(jsons_mapping_pairs_paths, destinations_paths):
+        print(f'Translating {mappings_p}')
+        heb_set = eng_to_heb.translate_dataset(translation_jsonl_path=json_translations_file_path,
+                                               mappings_json_path=mappings_p,
+                                               return_list_of_dicts=True,
+                                               specific_columns_list=['uid', 'premise', 'hypothesis', 'label'])
+        save_json(heb_set, dest_p)
+        print(f'Saved hebrew dataset to {dest_p}. Samples={len(heb_set)}')
+
+
 def main():
     files = ["train.jsonl", "dev.jsonl", "test.jsonl"]
     all_data = []
@@ -71,4 +93,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    translate_datasets()
