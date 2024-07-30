@@ -20,7 +20,10 @@ def read_jsonl_file(nl_file_path, return_df=True) -> Union[pd.DataFrame, list]:
 
 
 def get_translation_by_text_key(text_key: str, translation_df: dict, text_key_column_name='key'):
-    return translation_df[translation_df[text_key_column_name] == text_key][['text_translated']].values.tolist()[0][0]
+    try:
+        return translation_df[translation_df[text_key_column_name] == text_key][['text_translated']].values.tolist()[0][0]
+    except Exception as e:
+        print(f'error with key: {text_key}. (Error: {e})')
 
 
 def read_json_mappings_of_pairs(json_file_path, return_df=True):
