@@ -49,17 +49,9 @@ def map_translations(data, unique_texts):
     return mapped_data
 
 
-def translate_datasets():
-    json_translations_file_path = 'eng_to_heb_processes/unique_texts.jsonl.dlm2.0translated (1).jsonl'
-    jsons_mapping_pairs_paths = ['datasets/mapped_datasets/mapped_train.json',
-                                 'datasets/mapped_datasets/mapped_dev.json',
-                                 'datasets/mapped_datasets/mapped_test.json'
-                                 ]
-    destinations_paths = ['datasets/heb_datasets/heb_train.json',
-                          'datasets/heb_datasets/heb_dev.json',
-                          'datasets/heb_datasets/heb_test.json'
-                          ]
-
+def translate_datasets(jsons_mapping_pairs_paths: list[str],
+                       json_translations_file_path: str,
+                       destinations_paths: list[str]):
     for mappings_p, dest_p in zip(jsons_mapping_pairs_paths, destinations_paths):
         print(f'Translating {mappings_p}')
         heb_set = eng_to_heb.translate_dataset(translation_jsonl_path=json_translations_file_path,
@@ -94,4 +86,26 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    translate_datasets()
+
+    general_jsons_mapping_pairs_paths = ['datasets/mapped_datasets/mapped_train.json',
+                                         'datasets/mapped_datasets/mapped_dev.json',
+                                         'datasets/mapped_datasets/mapped_test.json'
+                                         ]
+
+    dikta_trans_destinations_paths = ['datasets/dikta_heb_datasets/dikta_heb_train.json',
+                                      'datasets/dikta_heb_datasets/dikta_heb_dev.json',
+                                      'datasets/dikta_heb_datasets/dikta_heb_test.json'
+                                      ]
+    dikta_json_translations_file_path = 'eng_to_heb_processes/unique_texts.jsonl.dlm2.0translated (1).jsonl'
+
+    aws_trans_destinations_paths = ['datasets/aws_heb_datasets/aws_heb_train.json',
+                                    'datasets/aws_heb_datasets/aws_heb_dev.json',
+                                    'datasets/aws_heb_datasets/aws_heb_test.json'
+                                    ]
+    aws_json_translations_file_path = 'eng_to_heb_processes/unique_texts_aws_translated.jsonl'
+
+    translate_datasets(
+        jsons_mapping_pairs_paths=general_jsons_mapping_pairs_paths,
+        json_translations_file_path=aws_json_translations_file_path,
+        destinations_paths=aws_trans_destinations_paths,
+    )
