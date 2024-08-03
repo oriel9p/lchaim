@@ -1,22 +1,8 @@
 import json
-from typing import Union
 import pandas as pd
 from scipy.stats import truncnorm
 import numpy as np
-
-
-def read_jsonl_file(nl_file_path, return_df=True) -> Union[pd.DataFrame, list]:
-    """
-    :param return_df: return df with 'text', 'key', 'text_translated' columns
-    :param nl_file_path:
-    :return: list of dicts(keys: 'text', 'key', 'text_translated') per translation
-    """
-    with open(nl_file_path, 'r') as f:
-        jsonl_content = f.read()
-        result = [json.loads(jline) for jline in jsonl_content.splitlines()]
-    if return_df:
-        return pd.DataFrame(result)
-    return result
+from utils.general_functions import read_jsonl_file
 
 
 def get_translation_by_text_key(text_key: str, translation_df: dict, text_key_column_name='key'):
