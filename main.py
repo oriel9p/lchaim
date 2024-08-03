@@ -10,6 +10,13 @@ def load_jsonl(file_path):
     return data
 
 
+def save_jsonl(data, file_path):
+    with open(file_path, 'w', encoding='utf-8') as f:
+        for item in data:
+            json.dump(item, f, ensure_ascii=False)
+            f.write('\n')
+
+
 def save_json(data, file_path):
     with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
@@ -58,8 +65,9 @@ def translate_datasets(jsons_mapping_pairs_paths: list[str],
                                                mappings_json_path=mappings_p,
                                                return_list_of_dicts=True,
                                                specific_columns_list=['uid', 'premise', 'hypothesis', 'label'])
-        save_json(heb_set, dest_p)
-        print(f'Saved hebrew dataset to {dest_p}. Samples={len(heb_set)}')
+        # save_json(heb_set, dest_p)
+        # print(f'Saved hebrew dataset to {dest_p}. Samples={len(heb_set)}')
+        return heb_set
 
 
 def main():
