@@ -28,15 +28,16 @@ def alepbert_hidden_layer_extraction(train_data, dev_data, test_data,
 
 if __name__ == '__main__':
     lchaim_train_data, lchaim_dev_data, lchaim_test_data = load_dikta_lchaim_data()
+    print(type(lchaim_train_data))
 
-    hero_model_name = 'longhero'
-    longhero_lchim_destination_folder_path = f'mlp_inputs/lchaim/{hero_model_name}'
-    longhero_hidden_layer_extraction(train_data=lchaim_train_data, dev_data=lchaim_dev_data, test_data=lchaim_test_data,
-                                     embeddings_destination_folder_path=longhero_lchim_destination_folder_path,
-                                     model_name=hero_model_name)
-
-    aleph_model_name = 'alephbert'
-    alephbert_lchaim_destination_folder_path = f'mlp_inputs/lchaim/{aleph_model_name}'
-    longhero_hidden_layer_extraction(train_data=lchaim_train_data, dev_data=lchaim_dev_data, test_data=lchaim_test_data,
-                                     embeddings_destination_folder_path=alephbert_lchaim_destination_folder_path,
-                                     model_name=aleph_model_name)
+    # hero_model_name = 'longhero'
+    # longhero_lchim_destination_folder_path = f'mlp_inputs/lchaim/{hero_model_name}'
+    # longhero_hidden_layer_extraction(train_data=lchaim_train_data, dev_data=lchaim_dev_data, test_data=lchaim_test_data,
+    #                                  embeddings_destination_folder_path=longhero_lchim_destination_folder_path,
+    #                                  model_name=hero_model_name)
+    #
+    # aleph_model_name = 'alephbert'
+    # alephbert_lchaim_destination_folder_path = f'mlp_inputs/lchaim/{aleph_model_name}'
+    # longhero_hidden_layer_extraction(train_data=lchaim_train_data, dev_data=lchaim_dev_data, test_data=lchaim_test_data,
+    #                                  embeddings_destination_folder_path=alephbert_lchaim_destination_folder_path,
+    #                                  model_name=aleph_model_name)
