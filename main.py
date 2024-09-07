@@ -58,16 +58,17 @@ def map_translations(data, unique_texts):
 
 def translate_datasets(jsons_mapping_pairs_paths: list[str],
                        json_translations_file_path: str,
-                       destinations_paths: list[str]):
+                       destinations_paths: list[str],
+                       translation_key_name_in_translations_file):
     for mappings_p, dest_p in zip(jsons_mapping_pairs_paths, destinations_paths):
         print(f'Translating {mappings_p}')
         heb_set = eng_to_heb.translate_dataset(translation_jsonl_path=json_translations_file_path,
                                                mappings_json_path=mappings_p,
                                                return_list_of_dicts=True,
-                                               specific_columns_list=['uid', 'premise', 'hypothesis', 'label'])
-        # save_json(heb_set, dest_p)
-        # print(f'Saved hebrew dataset to {dest_p}. Samples={len(heb_set)}')
-        return heb_set
+                                               specific_columns_list=['uid', 'premise', 'hypothesis', 'label'],
+                                               translation_key_column_name=translation_key_name_in_translations_file)
+        save_json(heb_set, dest_p)
+        print(f'Saved hebrew dataset to {dest_p}. Samples={len(heb_set)}')
 
 
 def main():
@@ -110,10 +111,19 @@ if __name__ == "__main__":
                                     'datasets/aws_heb_datasets/aws_heb_dev.json',
                                     'datasets/aws_heb_datasets/aws_heb_test.json'
                                     ]
+
+    eng_lchaim_destinations_paths = [
+        'datasets/eng_lchaim/eng_lchaim_train.json',
+        'datasets/eng_lchaim/eng_lchaim_dev.json',
+        'datasets/eng_lchaim/eng_lchaim_test.json'
+    ]
     aws_json_translations_file_path = 'eng_to_heb_processes/unique_texts_aws_translated.jsonl'
+
+    aws_eng_lchaim_file_path = 'reverse_translate_heb_to_eng/heb2eng_unique_texts_aws_translated.jsonl'
 
     translate_datasets(
         jsons_mapping_pairs_paths=general_jsons_mapping_pairs_paths,
-        json_translations_file_path=aws_json_translations_file_path,
-        destinations_paths=aws_trans_destinations_paths,
+        json_translations_file_path=aws_eng_lchaim_file_path,
+        destinations_paths=eng_lchaim_destinations_paths,
+        translation_key_name_in_translations_file='text_reverse_translated'
     )
