@@ -5,9 +5,12 @@ import numpy as np
 from utils.general_functions import read_jsonl_file
 
 
-def get_translation_by_text_key(text_key: str, translation_df: dict, text_key_column_name='key'):
+def get_translation_by_text_key(text_key: str,
+                                translation_df: dict,
+                                text_key_column_name='key',
+                                translation_key_column_name='text_translated'):
     try:
-        return translation_df[translation_df[text_key_column_name] == text_key][['text_translated']].values.tolist()[0][0]
+        return translation_df[translation_df[text_key_column_name] == text_key][[translation_key_column_name]].values.tolist()[0][0]
     except Exception as e:
         print(f'error with key: {text_key}. (Error: {e})')
 
@@ -20,22 +23,26 @@ def read_json_mappings_of_pairs(json_file_path, return_df=True):
     return data
 
 
-def extract_translations_from_mappings_df(mappings_df: pd.DataFrame, translation_df) -> pd.DataFrame:
+def extract_translations_from_mappings_df(mappings_df: pd.DataFrame, translation_df, translation_key_column_name) -> pd.DataFrame:
     cloned_mappings = mappings_df.copy()
 
     cloned_mappings['premise'] = cloned_mappings['premise_id'].apply(
-        lambda x: get_translation_by_text_key(x, translation_df=translation_df))
+        lambda x: get_translation_by_text_key(x, translation_df=translation_df,
+                                              translation_key_column_name=translation_key_column_name))
     cloned_mappings['hypothesis'] = cloned_mappings['hypothesis_id'].apply(
-        lambda x: get_translation_by_text_key(x, translation_df=translation_df))
+        lambda x: get_translation_by_text_key(x, translation_df=translation_df,
+                                              translation_key_column_name=translation_key_column_name))
 
     return cloned_mappings
 
 
-def translate_dataset(translation_jsonl_path, mappings_json_path, return_list_of_dicts=True,
+def translate_dataset(translation_jsonl_path, mappings_json_path,
+                      translation_key_column_name,
+                      return_list_of_dicts=True,
                       specific_columns_list=None):
     translation_df = read_jsonl_file(translation_jsonl_path)
     mappings_df = read_json_mappings_of_pairs(mappings_json_path)
-    res = extract_translations_from_mappings_df(mappings_df, translation_df)
+    res = extract_translations_from_mappings_df(mappings_df, translation_df, translation_key_column_name)
     if specific_columns_list:
         res = res[specific_columns_list]
     if return_list_of_dicts:
