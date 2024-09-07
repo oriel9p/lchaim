@@ -60,6 +60,7 @@ def translate_datasets(jsons_mapping_pairs_paths: list[str],
                        json_translations_file_path: str,
                        destinations_paths: list[str],
                        translation_key_name_in_translations_file):
+
     for mappings_p, dest_p in zip(jsons_mapping_pairs_paths, destinations_paths):
         print(f'Translating {mappings_p}')
         heb_set = eng_to_heb.translate_dataset(translation_jsonl_path=json_translations_file_path,
