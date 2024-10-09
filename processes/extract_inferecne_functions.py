@@ -3,6 +3,14 @@ import torch
 from tqdm import tqdm
 
 
+def get_labels_tensor_from_data(data, label_key_name='label', labels_mapping = {'c': 0, 'e': 1, 'n': 2}, data_is_df=False):
+  if data_is_df:
+    str_labels = data[label_key_name].tolist()
+  else:
+    str_labels = [sample_[label_key_name] for sample_ in data]
+  y = torch.tensor([labels_mapping[str_label.lower()] for str_label in str_labels], dtype=torch.int64)
+  return y
+
 def extract_classifications_from_sample(model, tokenizer, sample, device, max_length=4096):
     inputs = tokenizer(sample, return_tensors="pt", truncation=True, padding="max_length", max_length=max_length).to(
         device)
