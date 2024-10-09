@@ -133,10 +133,10 @@ def custom_set_seed(seed):
 
 
 def load_dikta_lchaim_data():
-    train_data_parquet = pd.read_parquet('../datasets/dikta_heb_datasets/dikta_train_data.parquet')
+    train_data_parquet = pd.read_parquet('../datasets/lchaim_dikta_dataset/dikta_train_data.parquet')
     control_train_data = train_data_parquet.to_dict(orient='records')
-    control_dev_data = read_json('../datasets/dikta_heb_datasets/dikta_dev_data.json')
-    control_test_data = read_json('../datasets/dikta_heb_datasets/dikta_test_data.json')
+    control_dev_data = read_json('../datasets/lchaim_dikta_dataset/dikta_dev_data.json')
+    control_test_data = read_json('../datasets/lchaim_dikta_dataset/dikta_test_data.json')
     return control_train_data, control_dev_data, control_test_data
 
 

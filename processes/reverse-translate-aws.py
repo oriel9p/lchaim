@@ -64,7 +64,7 @@ def load_jsonl(file_path):
     return data
 
 # Paths for input and output files
-input_file_path = './eng_to_heb_core_data/unique_texts_aws_translated.jsonl'
+input_file_path = './aws_control_to_to_heb_core_data/unique_texts_aws_translated.jsonl'
 output_file_path = './reverse_translate_heb_to_eng/heb2eng_unique_texts_aws_translated.jsonl'
 
 # Translate the JSONL file

@@ -87,7 +87,7 @@ def main():
         file_data = load_jsonl(file)
         mapped_data[file] = map_translations(file_data, unique_texts)
 
-    save_json(unique_texts, "datasets/unique_texts.json")
+    save_json(unique_texts, "datasets/mapped_datasets/unique_texts.json")
 
     for file in files:
         output_file = f"mapped_{file.replace('.jsonl', '.json')}"
@@ -102,15 +102,15 @@ if __name__ == "__main__":
                                          'datasets/mapped_datasets/mapped_test.json'
                                          ]
 
-    dikta_trans_destinations_paths = ['datasets/dikta_heb_datasets/dikta_heb_train.json',
-                                      'datasets/dikta_heb_datasets/dikta_heb_dev.json',
-                                      'datasets/dikta_heb_datasets/dikta_heb_test.json'
+    dikta_trans_destinations_paths = ['datasets/lchaim_dikta_dataset/dikta_heb_train.json',
+                                      'datasets/lchaim_dikta_dataset/dikta_heb_dev.json',
+                                      'datasets/lchaim_dikta_dataset/dikta_heb_test.json'
                                       ]
-    dikta_json_translations_file_path = 'datasets/eng_to_heb_core_data/unique_texts.jsonl.dlm2.0translated (1).jsonl'
+    dikta_json_translations_file_path = 'datasets/lchaim_aws_dataset/aws_control_to_to_heb_core_data/unique_texts.jsonl.dlm2.0translated (1).jsonl'
 
-    aws_trans_destinations_paths = ['datasets/aws_heb_datasets/aws_heb_train.json',
-                                    'datasets/aws_heb_datasets/aws_heb_dev.json',
-                                    'datasets/aws_heb_datasets/aws_heb_test.json'
+    aws_trans_destinations_paths = ['datasets/lchaim_aws_dataset/aws_heb_train.json',
+                                    'datasets/lchaim_aws_dataset/aws_heb_dev.json',
+                                    'datasets/lchaim_aws_dataset/aws_heb_test.json'
                                     ]
 
     eng_lchaim_destinations_paths = [
@@ -118,9 +118,9 @@ if __name__ == "__main__":
         'datasets/eng_lchaim/eng_lchaim_dev.json',
         'datasets/eng_lchaim/eng_lchaim_test.json'
     ]
-    aws_json_translations_file_path = 'datasets/eng_to_heb_core_data/unique_texts_aws_translated.jsonl'
+    aws_json_translations_file_path = 'datasets/lchaim_aws_dataset/aws_control_to_to_heb_core_data/unique_texts_aws_translated.jsonl'
 
-    aws_eng_lchaim_file_path = 'datasets/reverse_translate_heb_to_eng/heb2eng_unique_texts_aws_translated.jsonl'
+    aws_eng_lchaim_file_path = 'datasets/eng_lchaim/reverse_translate_heb_to_eng/heb2eng_unique_texts_aws_translated.jsonl'
 
     translate_datasets(
         jsons_mapping_pairs_paths=general_jsons_mapping_pairs_paths,
