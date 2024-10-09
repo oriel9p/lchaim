@@ -30,4 +30,3 @@ if __name__ == '__main__':
 
     main_training(x_embeddings_train=train_embeddings, y_train=y_train.long(),
                   x_embeddings_val=dev_embeddings, y_val=y_dev.long())
-
