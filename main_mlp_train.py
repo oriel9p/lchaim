@@ -1,7 +1,7 @@
 import torch
-from utils.extract_inferecne_functions import get_labels_tensor_from_data
+from processes.extract_inferecne_functions import get_labels_tensor_from_data
 from utils.general_functions import custom_set_seed, load_dikta_lchaim_data
-from utils.train_mlp import train_model, MLPClassifier
+from processes.train_mlp import train_model, MLPClassifier
 
 
 def main_training(x_embeddings_train, y_train, x_embeddings_val, y_val):

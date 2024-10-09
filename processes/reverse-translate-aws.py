@@ -24,36 +24,35 @@ session = boto3.Session(profile_name='lechaim')
 # translate = boto3.client('translate', region_name='us-east-1')
 translate = session.client('translate', region_name='us-east-1')
 
-def translate_text(text, source_lang='en', target_lang='he'):
+def translate_text(text, source_lang='he', target_lang='en'):
     """Translate text from source language to target language."""
     result = translate.translate_text(Text=text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
     return result['TranslatedText']
 
 def translate_jsonl(input_path, output_path):
     """Translate the content of a JSONL file and save the result to a new JSONL file."""
-    starting_line = 0
+    starting_line = 1147
     i = starting_line
     with open(input_path, 'r', encoding='utf-8') as infile, open(output_path, 'a', encoding='utf-8') as outfile:
         for line in itertools.islice(infile, starting_line, None):
-            stripped_line = line.strip()
-            if stripped_line in ['{', '}']: continue
-            # Split the text and text_id
+            json_line = json.loads(line)
             try:
-                text, text_id = stripped_line.split('": ')
-                text = text.replace('"', '')
-                text_id = text_id.replace('"', '')
+                hebrew_text = json_line["text_translated"]
                 # Translate the text
                 items = {
-                    "text" : text,
-                    "key": text_id,
-                    "text_translated": translate_text(text)
+                    "key" : json_line["key"],
+                    "hebrew_text" : hebrew_text,
+                    "text_reverse_translated": translate_text(hebrew_text),
+                    "origin_text" : json_line["text"]
                 }
                 outfile.write(json.dumps(items, ensure_ascii=False) + '\n')
                 i += 1
                 if i % 10  == 0: 
                     print(f'{i} lines translated so far')
-            except:
-                print(f'Error in line: {stripped_line} - skipping')
+
+            except Exception as e:
+                print(f'Error {e}\n in line: {json_line} - skipping')
+
             
 
 def load_jsonl(file_path):
@@ -65,8 +64,8 @@ def load_jsonl(file_path):
     return data
 
 # Paths for input and output files
-input_file_path = './unique_texts.json'
-output_file_path = './eng_to_heb_processes/unique_texts_aws_translated.jsonl'
+input_file_path = './eng_to_heb_core_data/unique_texts_aws_translated.jsonl'
+output_file_path = './reverse_translate_heb_to_eng/heb2eng_unique_texts_aws_translated.jsonl'
 
 # Translate the JSONL file
 translate_jsonl(input_file_path, output_file_path)
