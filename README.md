@@ -1,4 +1,4 @@
-# LCHAIM: Investigating Long Context Reasoning in Hebrew
+# LCHAIM: Investigating Long Context Reasoning in Hebrew, Published @ACL2025
 
 [![ACL 2025 Findings](https://img.shields.io/badge/ACL_2025-Findings-blue)](https://aclanthology.org/2025.findings-acl.413/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -43,3 +43,13 @@ We evaluated:
 Best performance (52% accuracy) was achieved by **LongHero fine-tuned on HebNLI and LCHAIM**. Human accuracy was ~85%, showing a significant gap in Hebrew NLU.
 
 ---
+
+## How to Cite
+```
+@inproceedings{malul2025lchaim,
+  title={LCHAIM-Investigating Long Context Reasoning in Hebrew},
+  author={Malul, Ehud and Perets, Oriel and Mor, Ziv and Kassel, Yigal and Sulem, Elior},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2025},
+  pages={7928--7939},
+  year={2025}
+```
